@@ -12,10 +12,10 @@ function createCard(cardData, deleteCallBack){
     cardElement.querySelector('.card__image').src = cardData.link;
     cardElement.querySelector('.card__title').textContent = cardData.name;
     cardElement.querySelector('.card__delete-button').addEventListener('click', () => {
-    deleteCallBack(cardElement)
+        deleteCallBack(cardElement)
     });
-    
-    cardList.append(cardElement);
+
+    return cardElement;
 }
 
 // @todo: Функция удаления карточки
@@ -24,7 +24,14 @@ function deleteCard(cardElement){
 }
 
 // @todo: Вывести карточки на страницу
-for (let i = 0; i < initialCards.length; i++){
-    createCard(initialCards[i],deleteCard);
-}
+for (let i = 0; i < initialCards.length; i++){ 
+    const card = createCard(initialCards[i], deleteCard)
+    createCard(initialCards[i],deleteCard); 
+    
+    cardList.append(card); 
+} 
+
+
+
+
 

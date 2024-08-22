@@ -26,7 +26,6 @@ function deleteCard(cardElement){
 // @todo: Вывести карточки на страницу
 for (let i = 0; i < initialCards.length; i++){ 
     const card = createCard(initialCards[i], deleteCard)
-    createCard(initialCards[i],deleteCard); 
     
     cardList.append(card); 
 } 

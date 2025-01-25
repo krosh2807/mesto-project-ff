@@ -1,8 +1,7 @@
-import { initialCards } from "./cards";
-import { openModal } from "./modal";
+import { openImagePopup } from ".";
 
 // Функция создания карточки
-export function createCard(cardData, handleLike) {
+export function createCard(cardData, handleLike, deleteCard, openImagePopup) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   
@@ -34,20 +33,12 @@ export function createCard(cardData, handleLike) {
     return cardElement;
   }
 
-  // Функция открытия попапа изображения
-export function openImagePopup(imageSrc, imageAlt) {
-    const imagePopup = document.querySelector('.popup_type_image');
-    const popupImage = imagePopup.querySelector('.popup__image');
-    const popupCaption = imagePopup.querySelector('.popup__caption');
-  
-    popupImage.src = imageSrc;
-    popupImage.alt = imageAlt;
-    popupCaption.textContent = imageAlt;
-  
-    openModal(imagePopup);
-  }
-
 // Функция удаления карточки
 export function deleteCard(cardElement){
     cardElement.remove();
  }
+
+//Функция лайка
+ export function handleLike(likeButton) {
+  likeButton.classList.toggle("card__like-button_is-active");
+}

@@ -69,7 +69,7 @@ function handleNewCardSubmit(evt) {
     link: cardLinkInput.value,
   };
 
-  const newCard = createCard(cardData, handleLike);
+  const newCard = createCard(cardData, handleLike, deleteCard, openImagePopup);
   cardList.prepend(newCard);
 
   closeModal(newCardPopup);

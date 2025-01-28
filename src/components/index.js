@@ -1,5 +1,5 @@
 import { openModal, closeModal, setCloseOnOverlay } from "./modal.js";
-import { createCard, handleLike } from "./card.js";
+import { createCard, deleteCard, handleLike } from "./card.js";
 import "/src/pages/index.css";
 import { initialCards } from "./cards";
 
@@ -18,6 +18,8 @@ const addCardButton = document.querySelector(".profile__add-button"); // Кно�
 const newCardForm = newCardPopup.querySelector(".popup__form"); // Новый попап(форма)
 const cardNameInput = newCardPopup.querySelector(".popup__input_type_card-name"); // Поле ввода названия
 const cardLinkInput = newCardPopup.querySelector(".popup__input_type_url"); // Поле ввода ссылки
+const popupImage = imagePopup.querySelector('.popup__image'); //Изображение попапа
+const popupCaption = imagePopup.querySelector('.popup__caption'); // Описание попапа
 
 // Кнопки для открытия модальных окон
 const cardImages = document.querySelectorAll(".card__image"); // Картинки карточек
@@ -84,19 +86,15 @@ addCardButton.addEventListener("click", () => {
 
 // Функция открытия попапа изображения
 export function openImagePopup(imageSrc, imageAlt) {
-  const imagePopup = document.querySelector('.popup_type_image');
-  const popupImage = imagePopup.querySelector('.popup__image');
-  const popupCaption = imagePopup.querySelector('.popup__caption');
-
   popupImage.src = imageSrc;
   popupImage.alt = imageAlt;
   popupCaption.textContent = imageAlt;
 
-  openModal(imagePopup);
+  openModal(imagePopup); // Открываем модальное окно
 }
 
 // Отображение карточек на странице
 initialCards.forEach((cardData) => {
-  const card = createCard(cardData, handleLike); // Создаём карточку
+  const card = createCard(cardData, handleLike, deleteCard, openImagePopup); // Создаём карточку
   cardList.append(card); // Добавляем её в список
 });

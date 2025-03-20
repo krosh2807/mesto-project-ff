@@ -10,11 +10,13 @@
 <body class="page">
 <div class="page__content">
   <header class="header page__section">
-    <img src= "<%=require('/src/images/logo.svg')%>" alt="Логотип проекта масто" class="logo header__logo">
+    <img src="<%=require('./images/logo.svg')%>" alt="Логотип проекта масто" class="logo header__logo">
   </header>
   <main class="content">
     <section class="profile page__section">
-      <div class="profile__image" style="background-image: url(<%=require('/src/images/avatar.jpg')%>);"></div>
+      <div class="profile__image" style="background-image: url(<%=require('./images/avatar.jpg')%>)">
+        <button class="profile__image-edit-button" type="button"></button>
+      </div>
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -29,7 +31,7 @@
   </main>
   <footer class="footer page__section">
     <p class="footer__copyright">
-      © 2024 Mesto Russia
+      © 2021 Mesto Russia
     </p>
   </footer>
   <div class="popup popup_type_edit">
@@ -37,8 +39,10 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="edit-profile">
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required>
-        <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" required>
+        <input type="text" name="name" id="input_edit-profile_name" class="popup__input popup__input_type_name" placeholder="Имя" required minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"   data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+        <span class="input_edit-profile_name-error form__input-error" style="color: red; font-size: 12px;" id="edit-profile_name"></span>
+        <input type="text" name="description" id="input_edit-profile_profession" class="popup__input popup__input_type_description" placeholder="Занятие" required minlength="2" maxlength="200" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+        <span class="input_edit-profile_profession-error form__input-error" style="color: red; font-size: 12px;" id="edit-profile_profession"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -48,8 +52,10 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="new-place">
-        <input type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" required>
-        <input type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+        <input type="text" name="place-name" id="input_card-name" class="popup__input popup__input_type_card-name" placeholder="Название" required  minlength="2" maxlength="30" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+        <span class="input_card-name-error form__input-error" style="color: red; font-size: 12px;" id="edit-profile_name"></span>
+        <input type="url" name="link" id="input_card-link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+        <span class="input_card-link-error form__input-error" style="color: red; font-size: 12px;" id="edit-profile_name"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -62,6 +68,16 @@
     </div>
   </div>
 </div>
+<div class="popup popup_type_edit-avatar">
+  <div class="popup__content popup__content-avatar">
+    <button type="button" class="popup__close"></button>
+    <h3 class="popup__title">Обновить аватар</h3>
+    <form class="popup__form" name="edit-avatar-form">
+      <input type="url" name="link" id="input_avatar-link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+      <span class="input_avatar-link-error form__input-error" style="color: red; font-size: 12px;" id="input_avatar-link-error"></span>
+      <button type="submit" class="button popup__button">Сохранить</button>
+    </form>
+  </div>
 
 <template id="card-template">
   <li class="places__item card">
@@ -70,10 +86,12 @@
     <div class="card__description">
       <h2 class="card__title">
       </h2>
-      <button type="button" class="card__like-button"></button>
+      <div class="card_like-container">
+        <button type="button" class="card__like-button"></button>
+        <span class="card_like-counter"></span>
+      </div>
     </div>
   </li>
 </template>
-
 </body>
 </html>

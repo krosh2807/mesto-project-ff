@@ -20,3 +20,18 @@
     line-height: 15px;
   }
 }
+
+.popup__input_type_error {
+  border-bottom: 2px solid red; /* Красное подчеркивание */
+}
+
+.popup__error {
+  color: red;
+  font-size: 12px;
+  display: block;
+}
+
+.popup__error_active {
+  color: red;
+  opacity: 1 !important; /* Показываем ошибку */
+}

@@ -23,9 +23,6 @@ export const profileInfo= () => {
     headers: config.headers,
   })
     .then(getResponseServer)//ошибка
-    .catch((err) => {
-      console.log(err);
-    });
 };
 
 // обновление аватара пользователя с сервера
@@ -38,9 +35,6 @@ export const updatedProfileAvatar = (avatarLink) => {
     }),
   })
     .then(getResponseServer)//ошибка
-    .catch((err) => {
-      console.log(err);
-    });
 };
 
 // редактирование профиля с сервера
@@ -54,9 +48,6 @@ export const  editProfileInfo= (name, about) => {
     }),
   })
     .then(getResponseServer)//ошибка
-    .catch((err) => {
-      console.log(err);
-    });
 };
 
 
@@ -68,9 +59,6 @@ export const takeCards = () => {
     headers: config.headers,
   })
     .then(getResponseServer)//ошибка
-    .catch((err) => {
-      console.log(err);
-    });
 };
 
 // добавление новой карточки с сервера
@@ -84,22 +72,16 @@ export const addCards= (name, link) => {
     }),
   })
     .then(getResponseServer)//ошибка
-    .catch((err) => {
-      console.log(err);
-    });
 };
 
 //удаление карточки с сервера
-export const deleteCard = (id) => {
-  return fetch(`${config.baseUrl}/cards/${id}`, {
+export function deleteCard(cardId) {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, { 
     method: "DELETE",
     headers: config.headers,
-  })
-    .then(getResponseServer)//ошибка
-    .catch((err) => {
-      console.log(err);
-    });
-};
+  }).then(getResponseServer);
+}
+
 
 //подсчет лайков
 export const handleAddLikes= (cardId) => {
@@ -108,9 +90,6 @@ export const handleAddLikes= (cardId) => {
     headers: config.headers,
   })
     .then(getResponseServer)//ошибка
-    .catch((err) => {
-      console.log(err);
-    });
 };
 
 //удаление лайков с карточки
@@ -120,7 +99,4 @@ export const handleDeleteLikes= (cardId) => {
     headers: config.headers,
   })
     .then(getResponseServer)//ошибка
-    .catch((err) => {
-      console.log(err);
-    });
 };

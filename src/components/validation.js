@@ -1,13 +1,10 @@
-//настройка валидации
-export const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
+//настройка валидности
+export const enableValidation = (config) => { 
+  const formList = Array.from(document.querySelectorAll(config.formSelector)); 
 
-  formList.forEach((formElement) => {
-    formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement, config);
-  });
+  formList.forEach((formElement) => { 
+    setEventListeners(formElement, config); // Убираем обработчик submit здесь, оставляем только setEventListeners
+  }); 
 };
 
 //очистка формы валидации
@@ -63,9 +60,9 @@ const isValid = (formElement, inputElement, config) => {
   }
 };
 
-//проверка валидности
-const InvalidInput= (inputList) => {
-  return inputList.some((inputElement) => !inputElement.validity.valid);
+// Проверка валидности
+const InvalidInput = (inputList) => { 
+  return inputList.some((inputElement) => !inputElement.validity.valid); 
 };
 
 //кнопка на форме валидации
@@ -88,10 +85,10 @@ const setEventListeners = (formElement, config) => {
 
   toggleButtonState(inputList, buttonElement, config);
 
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", () => {
-      isValid(formElement, inputElement, config);
-      toggleButtonState(inputList, buttonElement, config);
-    });
+  inputList.forEach((inputElement) => { 
+    inputElement.addEventListener("input", () => { 
+      isValid(formElement, inputElement, config); // Проверка валидности текущего инпута
+      toggleButtonState(inputList, buttonElement, config); // Обновление состояния кнопки
+    }); 
   });
 };

@@ -1,55 +1,59 @@
 import { handleAddLikes, handleDeleteLikes } from "./api.js";
-import { deleteCard } from "./api.js";
+import { deleteCard, handleAddLike } from "./api.js";
 
-//функция создания карточек
-export function createCard(item, openImagePopup, userId) {
-  //константы для создания карточек из "массива"
+// Функция создания карточек
+export function createCard(item, openImagePopup, userId, deleteCard, handleAddLikes) {
+  // Создание карточки из шаблона
   const templates = document
     .querySelector("#card-template")
     .content.querySelector(".places__item")
     .cloneNode(true);
 
-  templates.dataset.cardId = item._id;//передача ID карточек
+  templates.dataset.cardId = item._id; // Передача ID карточки
 
-  //константы для карточек
+  // Элементы карточки
   const cardName = templates.querySelector(".card__title");
   const cardImage = templates.querySelector(".card__image");
   const deleteButton = templates.querySelector(".card__delete-button");
   const buttonLike = templates.querySelector(".card__like-button");
   const likeCounter = templates.querySelector(".card_like-counter");
 
-  //вставка инфы для карточек
+  // Установка данных карточки
   cardName.textContent = item.name;
   cardImage.src = item.link;
   cardImage.alt = item.name;
+  likeCounter.textContent = item.likes.length; // Счетчик лайков
 
-  likeCounter.textContent = item.likes.length;//счетчик лайков
-
+  // Проверка, лайкнута ли карточка текущим пользователем
   if (item.likes.some((like) => like._id === userId)) {
-    buttonLike.classList.add("card__like-button_is-active");//поставили лайк
+    buttonLike.classList.add("card__like-button_is-active");
   }
 
-  buttonLike.addEventListener("click", handleLikeButtonClick);
+  // Обработчик лайка
+  buttonLike.addEventListener("click", () => handleLike(item._id, buttonLike, likeCounter));
 
+  // Отображение кнопки удаления только для владельца карточки
   if (item.owner._id !== userId) {
     deleteButton.style.display = "none";
-  } // обработчик кнопки удаления только пользователям чья карточка
+  } else {
+    deleteButton.addEventListener("click", () => {
+      deleteCard(item._id)
+        .then(() => {
+          templates.remove(); // Удаляем карточку из DOM после успешного удаления с сервера
+        })
+        .catch((err) => {
+          console.log("Ошибка при удалении карточки:", err);
+        });
+    });    
+  }
 
-  //кнопка удаления карточки
-  deleteButton.addEventListener("click", () => {
-    deleteCard(item._id)
-      .then(() => {
-        templates.remove();
-      })
-      .catch((err) => {
-        console.log("Ошибка при удалении карточки:", err);
-      });
-  });
+  // Обработчик открытия попапа с картинкой
+  cardImage.addEventListener("click", () => openImagePopup(item));
 
-  cardImage.addEventListener("click", () => openImagePopup(item)); //картинка карточки
-
-  return templates;//"возвращение" темплейта карточки на страницу
+  return templates; // Возвращение готовой карточки
 }
+
+
 
 //функция лайков карточек
 export function handleLike(cardId, likeButton, likeCounter) {

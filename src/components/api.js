@@ -62,7 +62,9 @@ export const takeCards = () => {
 };
 
 // добавление новой карточки с сервера
-export const addCards= (name, link) => {
+export const addCards = (name, link) => {
+  console.log("Отправляем данные:", { name, link });
+
   return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
@@ -70,9 +72,9 @@ export const addCards= (name, link) => {
       name: name,
       link: link,
     }),
-  })
-    .then(getResponseServer)//ошибка
+  }).then(getResponseServer);
 };
+
 
 //удаление карточки с сервера
 export function deleteCard(cardId) {

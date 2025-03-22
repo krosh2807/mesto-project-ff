@@ -4,7 +4,7 @@
   "description": "https://github.com/krosh2807/mesto-project-ff.git",
   "main": "index.js",
   "scripts": {
-    "build": "rd /s /q dist && webpack",
+    "build": "webpack",
     "dev": "webpack serve",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
